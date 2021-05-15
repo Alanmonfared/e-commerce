@@ -1,5 +1,5 @@
 <template>
-    <nav  class="navbar navbar-expand-lg navbar-light bgnav ">
+    <nav  class="navbar navbar-expand-lg navbar-light bgnav  ">
   <div class="container">
     <a class="navbar-brand  text-white" href="#"><h4>TimePiece</h4></a>
     <button
@@ -24,8 +24,8 @@
             
       </ul>
    
-        <ul class="navbar-nav ms-auto ">
-        <li class="nav-item dropdown">
+        <ul class="navbar-nav ms-auto "  >
+        <li class="nav-item dropdown ">
             <a
             class="nav-link dropdown"
             href="#"
@@ -47,27 +47,32 @@
          </ul>
       </li>
 
-      <li class="nav-item dropdown ">
-            <a
-            class="nav-link dropdown"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-            >
-          <i class="fas fa-user text-white"></i>
-        </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-          USER Settings
-    </ul>
-      </li>
-    </ul>
-    
-    
+      <li class="nav-item dropdown" v-if="loggedIn">
+              <a
+                class="nav-link dropdown text-white"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user"></i>
+              </a>
+              <!-- Dropdown menu -->
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li class="nav-item">
+                  <router-link class="nav-link text-dark" aria-current="page" to="/user">Settings</router-link>
+                </li>
+              </ul>
+            </li>
+
+            <li v-if="!loggedIn">
+              <router-link class="nav-link text-white" to="/userLogin">Login</router-link>
+            </li>
+        </ul>
+        
     </div>
-     
-    
+         
   </div>
 </nav>
 </template>
@@ -75,12 +80,14 @@
 <script>
 import ShoppingCarts from '../cart/ShoppingCarts'
 import { mapGetters } from 'vuex'
+// import UserLogin from '../user/userLogin'
 export default {
   components: {
-   ShoppingCarts 
+   ShoppingCarts,
+  //  UserLogin 
   },
   computed: {
-    ...mapGetters(['itemCunter'])
+    ...mapGetters(['itemCunter','loggedIn'])
   }
 
 }

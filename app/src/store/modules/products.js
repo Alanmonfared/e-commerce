@@ -25,10 +25,10 @@ export default {
     getProducts: async ({commit}) => {
       const res = await axios.get('http://localhost:9999/api/products')
       commit('SET_PRODUCTS', res.data)
-      console.log(res.data)
+    
     },
-    getOneProduct: async ({commit}, id) => {
-      const res = await axios.get('http://localhost:9999/api/products/' + id)
+    getOneProduct: async ({commit}, _id) => {
+      const res = await axios.get('http://localhost:9999/api/products/' + _id)
       commit('SET_PRODUCT', res.data)
     },
     cleanup: ({commit}) => {

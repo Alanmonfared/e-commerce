@@ -18,6 +18,7 @@
         
 
       <router-link :to="{ name: 'ProductInfo', params:{ id: product._id }}" type="button" class="btn btn-info mx-2 mt-5 mb-4">Show watch</router-link>
+      <!-- // ? hita lösning till denna varför kan man inte gå skriva to="/Products/info/:id" -->
           
         
       </div>

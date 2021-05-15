@@ -66,6 +66,42 @@ exports.registerUser = (req, res) => {
 }
 
 
+
+exports.addOrder = (req, res) => {
+    User.exists({ email: req.params.id }, (err, result) => {
+      if (err) {
+        return res.status(400).json({
+          statusCode: 400,
+          status: false,
+          message: "You made a bad request.",
+        });
+      }
+      if (result) {
+        const points = req.body.totalPrice / 100;
+  
+        User.updateOne(
+          { email: req.params.id },
+          { $push: { orders: req.body }, $set: { points: +points } }
+        )
+          .then(() => {
+            res.status(200).json({
+              statusCode: 200,
+              status: true,
+              message: "order aded successfully.",
+            });
+          })
+          .catch(() => {
+            res.status(500).json({
+              statusCode: 500,
+              status: false,
+              message: "Failed to ad order.",
+            });
+          });
+      }
+    });
+  };
+
+
 exports.loginUser = (req, res) => {
   
     User.findOne({ email:  req.body.email })

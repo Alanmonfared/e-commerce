@@ -43,7 +43,7 @@ import ShoppingCartProduct from './ShoppingCartProduct'
 
 export default {
 name: 'ShoppingCarts',
- 
+ props:['_id'],
   components: {
     ShoppingCartProduct
   },

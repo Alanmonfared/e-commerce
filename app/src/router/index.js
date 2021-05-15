@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Products from '../views/Products.vue'
 import ProductInfo from '../views/ProductInfo.vue'
+import userLogin from '../views/userLogin.vue'
+import register from '../views/register.vue'
+import UserSettings from '../views/UserSettings.vue'
+import store from '../store'
 // import ShoppingCart from '../views/ShoppingCart.vue'
 // import Navbar from '../components/nav/Navbar.vue'
 
@@ -24,6 +28,31 @@ const routes = [
     name: 'ProductInfo',
     component: ProductInfo,
     props:true
+  },
+  // {
+  //   path: '/userLogin',
+  //   name: 'userLogin',
+  //   component: userLogin,
+  //   // props:true
+  // },
+  {
+    path: '/userLogin',
+    name: 'UserLogin',
+    component: userLogin,
+    // props:true
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: register,
+    // props:true
+  },
+  {
+    path: '/user',
+    name: 'UserSettings',
+    component: UserSettings,
+    meta: { authorize:true}
+    // props:true
   },
   // {
   //   path: '/Products/info/:id',
@@ -51,5 +80,25 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
+router.beforeEach((to, from, next) => {
+
+ const {authorize} = to.meta
+ const loggedIn = store.getters.loggedIn
+//  console.log(store.getters.loggedIn)
+
+  if(authorize) {
+    if(!loggedIn) {
+      next({ path: '/login', query: {redirect: to.fullPath} })
+    } else {
+      next()
+    }
+  }
+next()
+})
+
+
+
 
 export default router

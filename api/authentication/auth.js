@@ -12,7 +12,7 @@ exports.generateToken = user => {
 
 exports.verifyToken = ( req, res, next) => {
     try {
-        //Token blir skickad som: Barer <token> därför splittar vi, för att bara få token delen
+        
         const token = req.headers.authorization.split(" ")[1]
         req.Userdata = jwt.verify(token, secretKey)
         next();

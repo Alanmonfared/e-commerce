@@ -7,7 +7,7 @@ router.post('/register', userModel.registerUser );
 
 router.post('/login', userModel.loginUser);
 
-
+router.post("/addorder", userModel.addOrder);
 
 
 
