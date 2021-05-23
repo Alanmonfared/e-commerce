@@ -1,25 +1,20 @@
 <template>
 
-    <div class=" row row-cols-1 row-cols-md-7 g-4  " style="width: 25rem">
+<div class=" row row-cols-10 row-cols-md-1  g-4 " style="width: 350px" >
         <!-- <Products /> -->
   <div class="col   ">
-    <div class="card ">
-     
-     <img :src="product.image" alt="..." >
+    <div class="card height  ">
+     <div class="bg-image hover-zoom  row-cols-md-1 ">
+
+     <img class="mt-4 border-bottom " :src="product.image" alt="..." >
+     </div>
+    
       <div class="card-body  ">
         <h5 class="card-title"> {{ product.name }} </h5>
-        <!-- <p class="card-text"> {{ product.short }} </p> -->
         <p class="text-info"> {{ product.desc | shorten }} </p>
-        <!-- <span class="text-danger " > {{ product.price }} SEK</span> -->
-        <!-- <span> {{ product._id }} </span> -->
-                 
-
-
-        
-
-      <router-link :to="{ name: 'ProductInfo', params:{ id: product._id }}" type="button" class="btn btn-info mx-2 mt-5 mb-4">Show watch</router-link>
-      <!-- // ? hita lösning till denna varför kan man inte gå skriva to="/Products/info/:id" -->
-          
+   
+      <router-link :to="{ name: 'ProductInfo', params:{ id: product._id }}" type="button" class="btn btn- mx-2 mt-5 mb-4 text-white">Show watch</router-link>
+               
         
       </div>
     </div>
@@ -29,8 +24,7 @@
 </template>
 
 <script>
-// import Products from '../../store/modules/products'
-// import {mapActions} from 'vuex'
+
 export default {
   name: 'ProductEpic',
   props: ['product'],
@@ -57,8 +51,17 @@ grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
 gap:5rem;
 }
 
-template {
-  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
-  }
+.height {
+ height: 100%;
+
+}
+
+.bga {
+    background-color:blue;
+}
+
+.btn- {
+  background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+}
 
 </style>

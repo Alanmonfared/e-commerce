@@ -3,7 +3,6 @@ const User = require('../users/userSchema');
 const bcrypt = require('bcrypt');
 const auth = require('../../authentication/auth')
 
-
 exports.registerUser = (req, res) => {
     
   User.exists({ email: req.body.email }, (err, result) => {
@@ -40,6 +39,7 @@ exports.registerUser = (req, res) => {
         const newUser = new User ({
           firstName:        req.body.firstName,
           lastName:         req.body.lastName,
+          order:            req.body.order,
           email:            req.body.email,
           passwordHash:     hash
         })
@@ -64,43 +64,6 @@ exports.registerUser = (req, res) => {
   })
 
 }
-
-
-
-exports.addOrder = (req, res) => {
-    User.exists({ email: req.params.id }, (err, result) => {
-      if (err) {
-        return res.status(400).json({
-          statusCode: 400,
-          status: false,
-          message: "You made a bad request.",
-        });
-      }
-      if (result) {
-        const points = req.body.totalPrice / 100;
-  
-        User.updateOne(
-          { email: req.params.id },
-          { $push: { orders: req.body }, $set: { points: +points } }
-        )
-          .then(() => {
-            res.status(200).json({
-              statusCode: 200,
-              status: true,
-              message: "order aded successfully.",
-            });
-          })
-          .catch(() => {
-            res.status(500).json({
-              statusCode: 500,
-              status: false,
-              message: "Failed to ad order.",
-            });
-          });
-      }
-    });
-  };
-
 
 exports.loginUser = (req, res) => {
   
@@ -131,7 +94,8 @@ exports.loginUser = (req, res) => {
                     statusCode: 200,
                     status: true,
                     message: 'Authentication was successfully',
-                    token:auth.generateToken(user)
+                    token:auth.generateToken(user),
+                    user: user
                  })
              } else {
                  res.status(401).json({
@@ -142,5 +106,46 @@ exports.loginUser = (req, res) => {
              }
         })
     })
-
 }
+
+exports.addOrder = (req, res) => {
+      User.exists({ email: req.params.id }, (err, result) => {
+        if (err) {
+          return res.status(400).json({
+            statusCode: 400,
+            status: false,
+            message: "You made a bad request.",
+          });
+        }
+        if (result) {
+    
+          User.updateOne(
+            { email: req.params.id },
+            { $push: { order: req.body } }
+          )
+            .then(() => {
+              console.log('success')
+              res.status(200).json({
+                statusCode: 200,
+                status: true,
+                message: "order added successfully.",
+              });
+            })
+            .catch(() => {
+              res.status(500).json({
+                statusCode: 500,
+                status: false,
+                message: "Failed to add order.",
+              })
+            })
+        }
+      })
+    }
+
+
+
+
+
+
+
+

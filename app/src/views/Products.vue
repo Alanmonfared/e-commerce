@@ -1,7 +1,8 @@
 <template>
   <!-- <h1>hejhej</h1> -->
   
-  <ProductCard />
+  <ProductCard class="mt-5" />
+  
   
 
   
@@ -27,5 +28,7 @@ export default {
 </script>
 
 <style>
+
+
 
 </style>

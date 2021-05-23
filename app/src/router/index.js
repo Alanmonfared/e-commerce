@@ -5,6 +5,8 @@ import Products from '../views/Products.vue'
 import ProductInfo from '../views/ProductInfo.vue'
 import userLogin from '../views/userLogin.vue'
 import register from '../views/register.vue'
+import About from '../views/About.vue'
+import UserOrder from '../views/userorder.vue'
 import UserSettings from '../views/UserSettings.vue'
 import store from '../store'
 // import ShoppingCart from '../views/ShoppingCart.vue'
@@ -60,11 +62,16 @@ const routes = [
   //   component: ShoppingCart,
   //   props:true
   // },
-  // {
-  //   path: '/About',
-  //   name: 'Home',
-  //   component: Navbar
-  // },
+  {
+    path: '/About',
+    name: 'Home',
+    component: About
+  },
+  {
+    path: '/userorder',
+    name: 'Userorder',
+    component: UserOrder
+  },
   // {
   //   path: '/about',
   //   name: 'About',
@@ -86,9 +93,33 @@ router.beforeEach((to, from, next) => {
 
  const {authorize} = to.meta
  const loggedIn = store.getters.loggedIn
-//  console.log(store.getters.loggedIn)
+ const logout = store.getters.logout
+//  const shoppingCart = store.getters.shoppingCart
 
+
+ //  console.log(store.getters.loggedIn)
+// if(authorize) {
+//   if(loggedIn) {
+//     shoppingCart.push()
+//       console.log(authorize)
+
+//   }
+
+// } 
+ 
+if (authorize) {
+
+  if(logout) {
+    next({ path: '/login', query: {redirect: to.fullPath} })
+
+  } else {
+    next()
+  
+  }
+  next()
+}
   if(authorize) {
+    
     if(!loggedIn) {
       next({ path: '/login', query: {redirect: to.fullPath} })
     } else {

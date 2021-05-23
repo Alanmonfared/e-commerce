@@ -7,6 +7,7 @@ export default {
        cart: []
    },
     getters: {
+        
         shoppingCart: state => state.cart,
         itemCunter: state => {
             let counter = 0
@@ -72,12 +73,7 @@ export default {
         },
 
         REMOVE_FROM_CART: (state, { product }) => {
-            // let Delete = state.cart.find(item => item.product._id === product._id)
-            // if(Delete) {
-            //     item.remove(item, product)
-            //     console.log('fully')
-            //     return;
-            // }
+        
 
                 state.cart = state.cart.filter(item => {
                     return item.product._id !== product._id
@@ -89,7 +85,7 @@ export default {
             let exists = state.cart.find(item => item.product._id === product._id )
             if(exists) {
                 exists.quantity  -= quantity
-                // state.cart.item -= item
+             
                 
                 return;
             } else if (product.quantity < 1) {
@@ -116,7 +112,7 @@ export default {
         
         addProduct:  ({commit}, { product, quantity })  => {
             commit('INNER_ADDER', { product, quantity })
-            console.log( typeof addProduct)
+            // console.log( typeof addProduct)
              
         },  
   

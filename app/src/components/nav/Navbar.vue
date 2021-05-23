@@ -1,9 +1,17 @@
 <template>
-    <nav  class="navbar navbar-expand-lg navbar-light bgnav  ">
-  <div class="container">
-    <a class="navbar-brand  text-white" href="#"><h4>TimePiece</h4></a>
+
+  
+
+<nav  class="navbar navbar-expand-lg  bgnav fixed-top shadow ">
+  
+  
+     
+  <div class="container mt-3">
+    <router-link class="navbar-brand  text-white " to="/" href="#"><h4>TimePiece</h4></router-link>
+
+
     <button
-      class="navbar-toggler"
+      class="navbar-toggler text-white"
       type="button"
       data-mdb-toggle="collapse"
       data-mdb-target="#navbarNav"
@@ -13,13 +21,16 @@
     >
       <i class="fas fa-bars"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse " id="navbarNav">
+      <ul class="navbar-nav ">
         <li class="nav-item">
-          <router-link class="nav-link active text-white" aria-current="page" to="/" href="#">Home</router-link>
+          <router-link class="nav-link active text-white" aria-current="page" to="/" href="#">Home </router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link text-white" href="#" to="/Products">Products</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link text-white" href="#" to="/About">About</router-link>
         </li>
             
       </ul>
@@ -38,11 +49,9 @@
           <span v-show="itemCunter" class="badge rounded-pill badge-notification bg-danger">{{ itemCunter }} </span>
         </a>
     <ul class="dropdown-menu dropdown-menu-end shopping-cart" aria-labelledby="navbarDropdownMenuLink">
-          <!-- <ShoppingCart /> -->
-          <!-- <h3>ShoppingCart funkar</h3> -->
+         
           <ShoppingCarts  />
           
-           <!-- <router-link :to="{name: 'ShoppingCart', params: { id: product._id}}" type="button">ShoppingCart</router-link > -->
           
          </ul>
       </li>
@@ -58,50 +67,68 @@
               >
                 <i class="fas fa-user"></i>
               </a>
+              
               <!-- Dropdown menu -->
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li class="nav-item">
                   <router-link class="nav-link text-dark" aria-current="page" to="/user">Settings</router-link>
                 </li>
               </ul>
+            
             </li>
+          <li v-if="loggedIn">
+            <button @click="logout" class="mx-4 btn-sm border-0 btn-danger cursor " to="/"> Logout</button>
 
+          </li>
+               
             <li v-if="!loggedIn">
               <router-link class="nav-link text-white" to="/userLogin">Login</router-link>
             </li>
         </ul>
         
     </div>
+
+    
          
   </div>
+  
 </nav>
+
+
+
 </template>
 
 <script>
 import ShoppingCarts from '../cart/ShoppingCarts'
-import { mapGetters } from 'vuex'
-// import UserLogin from '../user/userLogin'
+import { mapGetters,mapActions } from 'vuex'
+
 export default {
   components: {
    ShoppingCarts,
-  //  UserLogin 
+  
   },
   computed: {
-    ...mapGetters(['itemCunter','loggedIn'])
+    ...mapGetters(['itemCunter','loggedIn','profile'])
+  },
+  methods: {
+    ...mapActions(['logout'])
   }
 
 }
 </script>
 
-<style>
+<style >
 .shopping-cart{
   min-width:500px;
-  /* height:300px; */
+
   
 }
 .bgnav {
- background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+
+  background-color:#000f1d ;
 
 }
+
+
 
 </style>
